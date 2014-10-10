@@ -17,27 +17,27 @@ module.exports = function(app) {
 
 	app.route('/products/:productId')
 		.get(products.read)
-		.put(products.update)
-		.delete(products.delete);
+		.put(users.requiresLogin, products.hasAuthorization, products.update)
+		.delete(users.requiresLogin, products.hasAuthorization, products.delete);
 
 	// Reviews route
 	app.route('/products/:productId/reviews')
 		.get(reviews.list)
-		.post(reviews.addReview);
+		.post(users.requiresLogin, reviews.addReview);
 
 	app.route('/products/:productId/reviews/:reviewId')
 		.get(reviews.read)
-		.put(reviews.update)
-		.delete(reviews.deleteReview);
+		.put(users.requiresLogin, reviews.update)
+		.delete(users.requiresLogin, reviews.deleteReview);
 
 	// Comments route
 	app.route('/products/:productId/reviews/:reviewId/comments')
 		.get(comments.showComments)
-		.post(comments.addComment);
+		.post(users.requiresLogin, comments.addComment);
 
 	app.route('/products/:productId/reviews/:reviewId/comments/:commentId')
-		.put(comments.editComment)
-		.delete(comments.deleteComment);
+		.put(users.requiresLogin, comments.editComment)
+		.delete(users.requiresLogin, comments.deleteComment);
 
 	// Finish by binding the product middleware
 	app.param('productId', products.productByID);

@@ -95,3 +95,15 @@ exports.productByID = function(req, res, next, id) {
 		next();
 	});
 };
+
+/**
+ * Product authorization middleware
+ */
+exports.hasAuthorization = function(req, res, next) {
+	if (req.product.user.id !== req.user.id) {
+		return res.status(403).send({
+			message: 'User is not authorized'
+		});
+	}
+	next();
+};

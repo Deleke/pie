@@ -79,3 +79,15 @@ exports.showComments = function(req, res) {
 	// console.log(req.product.reviews.comments);
 	res.jsonp(req.review.comments);
 };
+
+
+//authorization middleware
+exports.hasAuthorization = function(req, res, next) {
+    console.log('requires login');
+    if (req.review.reviewer.toString() !== req.user.id) {
+        return res.send(403, {
+            itemMessage: 'You are not authorized'
+        });
+    }
+    next();
+};
