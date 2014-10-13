@@ -1,3 +1,5 @@
+'use strict';
+
 //Reviews service used for communicating with the product REST endpoints
 angular.module('products').factory('Reviews', ['$resource',
 	function($resource) {

@@ -18,7 +18,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 				$location.path('products/' + response._id);
 				$scope.createReview();
 				$scope.title = '';
-				$scope.review = '';
+				$scope.reviews = '';
 				$scope.category = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
@@ -26,19 +26,22 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 		};
 
 		//create a review
-		// $scope.createReview = function() {
-		// 	var review = new Reviews ({
-		// 		productId: $scope.product._id,
-		// 		content: this.content,
-		// 		comments: []
-		// 	});
+		$scope.createReview = function() {
+			var review = new Reviews ({
+				productId: $stateParams.productId,
+				content: this.content,
+				comments: []
+			});
 
-		// 	review.$save(function(response) {
-		// 		$scope.product = response;
-		// 	}, function(errorResponse) {
-  //         	$scope.error = errorResponse.data.message;
-  //     		});
-		// }
+			review.$save(function(response) {
+				$scope.content = '';
+				$scope.product = response;
+				$location.path('products/' + $stateParams.productId)
+
+			}, function(errorResponse) {
+          	$scope.error = errorResponse.data.message;
+      		});
+		};
 
 		$scope.remove = function(product) {
 			if (product) {

@@ -12,7 +12,15 @@
 					</div>
 					<label class="control-label" for="category">Category</label>
 					<div class="controls">
-						<input name="category" type="text" data-ng-model="category" id="title" class="form-control" placeholder="category" required>
+					<select data-ng-model="category" id="title">
+                      <option value="cameras">Cameras</option>
+                      <option value="computers" selected>Computers</option>
+                      <option value="electronics">Electronics</option>
+                      <option value="gizmos">Gizmos</option>
+                      <option value="phones">Phone</option>
+                      <option value="software">Software</option>
+                      <option value="tablets">Tablets</option>
+                    </select>
 					</div>
 				</div>
 				<div class="form-group">

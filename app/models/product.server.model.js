@@ -40,21 +40,18 @@ var ReviewSchema = new Schema ({
 
 
 
-//A category schema
-var CategorySchema = new Schema ({
-	category: {
-		type: String,
-		enum: ['software', 'appliances', 'books', 'devices', 'deviceAddons', 'computers', 'computerAddons', 'electronics', 'Movies']
-	}
-});
-
-
 
 //A product schema that stores attributes of a ptoduct
 var ProductSchema = new Schema ({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
+	},
+	category: {
+		type: String,
+		default: '',
+		required: 'please select the category for the product being reviewed',
+		trim: true
 	},
 	title: {
 		required: 'The product being reviewed should have a name, don\'t you think',
@@ -65,7 +62,6 @@ var ProductSchema = new Schema ({
 		type: Date,
 		default: Date.now
 	},
-	category: [CategorySchema],
 	reviews: [ReviewSchema]
 });
 

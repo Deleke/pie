@@ -41,7 +41,7 @@ exports.addReview = function(req, res) {
 	product.save(function(err) {
 		if (err) {
             return res.send(400, {
-                message: products.getErrorMessage(err)
+                message: errorHandler.getErrorMessage(err)
             });
         }   
         else {
