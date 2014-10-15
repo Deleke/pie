@@ -16,6 +16,10 @@ var CommentSchema = new Schema ({
 	comment: {
 		type: String,
 		default: ''
+	},
+	posted: {
+		type: Date,
+		default: Date.now
 	}
 });
 
@@ -23,7 +27,7 @@ var CommentSchema = new Schema ({
 
 //A review schema that stores details about the review
 var ReviewSchema = new Schema ({
-	user: {
+	ruser: {
 		type: Schema.ObjectId,
 		ref: 'User'
 	},

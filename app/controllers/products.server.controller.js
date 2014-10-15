@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
 
 
 
+
 //A function that allows the creation of a product
 exports.create = function(req, res) {
 	var product = new Product(req.body);
@@ -73,7 +74,7 @@ exports.delete = function(req, res) {
 
 //A function that lists products
 exports.list = function(req, res) {
-	Product.find().sort('-created').populate('user', 'displayName').exec(function(err, products) {
+	Product.find().sort('-created').populate('user', 'displayName').populate('reviews.user','displayName').exec(function(err, products) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -84,11 +85,45 @@ exports.list = function(req, res) {
 	});
 };
 
+//find product
+// exports.searchProducts = function(req, res) {
+// 	var $or = {
+// 		 $or: []
+// 	};
+
+// 	var validateQuery = function() {
+// 		if (req.query.tit && req.query.tit.length > 0) {
+// 			$or.$or.push ({
+// 				category: new RegExp(req.query.tit, 'i')
+// 			});
+// 		}
+
+// 		if (req.query.cat && req.query.cat.length > 0) {
+// 			$or.$or.push ({
+// 				category: new RegExp(req.query.cat, 'i')
+// 			});
+// 		}
+
+// 	}
+
+// 	validateQuery();
+
+// 	Products.find($or).exec(function(err, product) {
+// 		if (err) {
+// 			return res.status(400).send({
+// 				message: 'No reviews exist for this product'
+// 			});
+// 		} else {
+// 			res.jsonp(product);
+// 		}
+// 	});
+// };
+
 /**
  * Product middleware
  */
 exports.productByID = function(req, res, next, id) {
-	Product.findById(id).populate('user', 'displayName').exec(function(err, product) {
+	Product.findById(id).populate('user', 'displayName').populate('reviews.user','displayName').exec(function(err, product) {
 		if (err) return next(err);
 		if (!product) return next(new Error('Failed to load item ' + id));
 		req.product = product;

@@ -23,6 +23,15 @@
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
 		</ul>
+		<ul class="nav navbar-nav">
+			<form>
+				<input data-ng-model="findProduct" autocomplete="on" type="search" placeholder="Type desired products here">
+				<button class="sbutton" data-ng-click="searchProduct()">
+                    Search
+                </button>
+			</form>
+		</ul>
+		</span>
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
 				<a href="/#!/signup">Sign Up</a>

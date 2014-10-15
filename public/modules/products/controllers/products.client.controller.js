@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Products', 'Reviews',
-	function($scope, $stateParams, $location, Authentication, Products, Reviews) {
+angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Products', 'Reviews', 'Comments',
+	function($scope, $stateParams, $location, Authentication, Products, Reviews, Comments) {
 		$scope.authentication = Authentication;
 
 		$scope.create = function() {
@@ -36,11 +36,26 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 			review.$save(function(response) {
 				$scope.content = '';
 				$scope.product = response;
-				$location.path('products/' + $stateParams.productId)
+				$location.path('products/' + $stateParams.productId);
 
 			}, function(errorResponse) {
           	$scope.error = errorResponse.data.message;
       		});
+		};
+
+		//create a comment
+		$scope.createComment = function (index) {
+			var comment = new Comments ({
+				reviewId: $stateParams.reviewId,
+				comment: ''
+			});
+
+			comment.$save(function(response){
+				$scope.comment = '';
+				$scope.review = response;
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 		};
 
 		$scope.remove = function(product) {
@@ -77,6 +92,20 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 			$scope.product = Products.get({
 				productId: $stateParams.productId
 			});
+		};
+
+		$scope.reviewClicked = function(index, review) {
+			console.log(review);
+			var product = $scope.product;
+			$scope.comments = review.comments;
+			console.log(review.comments)
+
+			$scope.displayOverlay = true;
+			$scope.reviewContent = product.reviews[index].content;
+		};
+
+		$scope.hideReview = function(){
+			$scope.displayOverlay = false;
 		};
 	}
 ]);

@@ -15,6 +15,10 @@ module.exports = function(app) {
 		.get(products.list)
 		.post(products.create);
 
+	//Search route
+	// app.route('/products/find')
+	// 	.get(products.searchProducts);
+
 	app.route('/products/:productId')
 		.get(products.read)
 		.put(users.requiresLogin, products.hasAuthorization, products.update)
