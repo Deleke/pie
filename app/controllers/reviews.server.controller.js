@@ -4,6 +4,7 @@
 //Mongoose dependencies
 var mongoose = require('mongoose');
 var	Product = mongoose.model('Product'),
+Review = mongoose.model('Review'),
 errorHandler = require('./errors'),
 	_ = require('lodash');
 var products = require('../../app/controllers/products');
@@ -33,19 +34,22 @@ var products = require('../../app/controllers/products');
 
 //Add review
 exports.addReview = function(req, res) {
+	//console.log(req.body);
 	var product = req.product;
-	var review = req.body;
-	review.reviewer = req.user;
-	product.reviews.unshift(review);
+	var review = new Review(req.body);
+
+	review.ruser = req.user;
+	product.reviews.push(review);
 
 	product.save(function(err) {
 		if (err) {
-            return res.send(400, {
-                message: errorHandler.getErrorMessage(err)
+			console.log('oh shit');
+            return res.status(400).send({
+                message: getErrorMessage(err)
             });
         }   
         else {
-        	console.log(product);
+        	console.log('oh good');
             res.jsonp(product);
             
         }

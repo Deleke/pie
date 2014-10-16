@@ -4,7 +4,7 @@
 				<i class="glyphicon glyphicon-remove"></i>
 		</a>
 		<ul class='row'>
-			<li class='col-md-4 col-md-offset-2 col-sm-1col-sm-offset-0'>
+			<li class='col-md-4 col-md-offset-2 col-sm-1col-sm-offset-0 watchReview'>
 					<span data-ng-bind ='reviewContent'></span>
 			</li>
 			<li class='col-md-4 col-sm-1'>
@@ -36,6 +36,7 @@
 			<i class="glyphicon glyphicon-plus"></i>
 		</a>
 	</div>
+	<br>
 
 	<small>
 		<em class="text-muted">
@@ -47,14 +48,13 @@
 			<span data-ng-bind="product.category"></span>
 		</em>
 	</small>
-	<div>
-		<ul class='container'>
-			<li data-ng-repeat='review in product.reviews'>
-				<button class="link" ng-click='reviewClicked($index, review)'>
-					{{review.content}}
-				</button>
-			</li>
-		</ul>
+	<div class='thumbnails'>
+			<div data-ng-repeat='review in product.reviews' ng-click="reviewClick()">
+					<video controls class="span4"> 
+					  <source type="video/webm" ng-src="{{scePermit(review.content)}}"> 
+					  <source type="video/mp4" ng-src="{{scePermit(review.content)}}"> 
+					</video>
+			</div>
 	</div>
 	<p class="lead" data-ng-bind="reviews.content"></p>
 </section>

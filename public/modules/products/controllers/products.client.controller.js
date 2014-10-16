@@ -1,13 +1,17 @@
 'use strict';
 
-angular.module('products').controller('ProductsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Products', 'Reviews', 'Comments',
-	function($scope, $stateParams, $location, Authentication, Products, Reviews, Comments) {
+angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'$stateParams', '$location', 'Authentication', 'Products', 'Reviews', 'Comments',
+	function($scope, $sce, $stateParams, $location, Authentication, Products, Reviews, Comments) {
 		$scope.authentication = Authentication;
+
+		$scope.scePermit = function(path){
+			return $sce.trustAsResourceUrl(path);
+		};
 
 		$scope.create = function() {
 			var product = new Products({
 				title: this.title,
-				reviews: [{content: $scope.review}],
+				// reviews: [{content: $scope.review}],
 				category: this.category
 
 			});
@@ -25,13 +29,61 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 			});
 		};
 
+		$scope.getExtension = function(filename) {
+		    var parts = filename.split('.');
+		    return parts[parts.length - 1];
+		};
+
+		$scope.isVideo = function(filetype) {
+			if(filetype.indexOf('video') >= 0) {
+				return true;
+			} else {
+				return false;
+			}
+		    // var ext = getExtension(filename);
+		    // switch (ext.toLowerCase()) {
+		    // case 'm4v':
+		    // case 'avi':
+		    // case 'mpg':
+		    // case 'mp4':
+		    //     // etc
+		    //     return true;
+		    // }
+		    // return false;
+		};
+
+		 $scope.onFileSelect = function ($files) {
+           
+            $scope.files = $files;
+            $scope.stringFiles = [];
+
+            if ($scope.files && $scope.files[0]) {
+	           if ($scope.isVideo($scope.files[0].type)) {
+
+	           		var reader  = new FileReader();
+
+	           		reader.onloadend = function (e) {
+					   
+					    $scope.stringFiles.push({path: e.target.result});
+					};
+
+					reader.readAsDataURL($scope.files[0]);
+	          	  	$scope.correctFormat = true; 
+	        	} else {
+                   $scope.correctFormat = false; 
+              	}
+              	
+          	}
+        };
+
 		//create a review
 		$scope.createReview = function() {
 			var review = new Reviews ({
 				productId: $stateParams.productId,
-				content: this.content,
 				comments: []
 			});
+			console.log($scope.stringFiles);
+			review.content = $scope.stringFiles[0].path;
 
 			review.$save(function(response) {
 				$scope.content = '';
@@ -98,7 +150,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$statePa
 			console.log(review);
 			var product = $scope.product;
 			$scope.comments = review.comments;
-			console.log(review.comments)
+			console.log(review.comments);
 
 			$scope.displayOverlay = true;
 			$scope.reviewContent = product.reviews[index].content;
