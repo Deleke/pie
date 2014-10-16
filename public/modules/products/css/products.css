@@ -31,21 +31,11 @@ body {
 .overlay ul {
 	/*margin-left: 25%;*/
 }
-.watchReview {
-/*	float: left;*/
-	width: 40%;
-	height: 70%;
-	background: #fff;
-/*	margin-left: auto;
-	margin-right: 0;*/
-
-}
 
 .watchComment {
-/*	float: right;*/
-	/*width: 40%;
+	width: 40%;
 	height: 70%;
-	background: #736;*/
+	background: #736;
 /*	margin-left: 0;
 	margin-right: auto;*/
 
@@ -85,4 +75,28 @@ ul {
     min-width:320px;
 }
 
+ul.container {
+	text-align: center;
+     margin-top: 20px;
+     list-style: none;
+     font-size: 16px;
+     margin-left: -2.5%;
+     display: inline-block;
+}
 
+ul.container li video {
+     padding: 8px;
+     margin: 0 0 2.5% 2.5%;
+     border: 1px solid #ddd;
+     font-size: 16px;
+     font-size: 1rem;
+     vertical-align: top;
+     box-shadow: 0 0 5px #ddd;
+     box-sizing: border-box;
+     -moz-box-sizing: border-box;
+     -webkit-box-sizing: border-box;
+     max-width: 100%;
+     height: auto;
+     width: 800px;
+     margin: 0 0 10px;
+}

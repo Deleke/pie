@@ -146,14 +146,15 @@ angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'
 			});
 		};
 
-		$scope.reviewClicked = function(index, review) {
+		$scope.reviewClicked = function(review) {
+			// console.log(index);
 			console.log(review);
 			var product = $scope.product;
 			$scope.comments = review.comments;
-			console.log(review.comments);
-
+			console.log('access permitted') 
 			$scope.displayOverlay = true;
-			$scope.reviewContent = product.reviews[index].content;
+			// $scope.reviewContent = product.reviews[index].content;
+
 		};
 
 		$scope.hideReview = function(){
