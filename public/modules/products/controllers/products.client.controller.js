@@ -96,48 +96,56 @@ angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'
 		};
 
 		//create a comment
-		$scope.createComment = function (index) {
+		$scope.createComment = function () {
 			var comment = new Comments ({
-				reviewId: $stateParams.reviewId,
-				comment: ''
+				productId: $stateParams.productId,
+				reviewId: $scope.review._id,
+				comment: $scope.comment
 			});
 
 			comment.$save(function(response){
 				$scope.comment = '';
-				$scope.review = response;
+				$scope.product = response;
+				$location.path('products/' + $stateParams.productId);
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
 		};
 
 		$scope.remove = function(product) {
-			if (product) {
-				product.$remove();
+			if(confirm("Deleting this product will delete all it's Reviews and Comments too, are you sure you want to go ahead?"))
+			{
+				if (product) {
+					product.$remove();
 
-				for (var i in $scope.products) {
-					if ($scope.products[i] === product) {
-						$scope.products.splice(i, 1);
+					for (var i in $scope.products) {
+						if ($scope.products[i] === product) {
+							$scope.products.splice(i, 1);
+						}
 					}
+				} else {
+					$scope.product.$remove(function() {
+						$location.path('products');
+					});
 				}
-			} else {
-				$scope.product.$remove(function() {
-					$location.path('products');
-				});
-			}
-		};
+			};
+		}
 
 		$scope.removeReview = function(review) {
-   			var review = new Reviews({
-   				productId: $scope.product._id,
-   				_id: review._id,
-   				reviewPoster: review.ruser
-   			});
+			if(confirm("Are you sure you want to delete this review?"))
+			{
+	   			var review = new Reviews({
+	   				productId: $scope.product._id,
+	   				_id: review._id,
+	   				reviewPoster: review.ruser
+	   			});
 
-   			review.$remove(function(response) {
-   				$scope.product = response
-   			});
+	   			review.$remove(function(response) {
+	   				$scope.product = response
+	   			});
 
-   		};
+	   		};
+	   	}
 		$scope.update = function() {
 			var product = $scope.product;
 
@@ -161,6 +169,7 @@ angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'
 		$scope.reviewClicked = function(review) {
 			// console.log(index);
 			console.log(review);
+			$scope.review = review;
 			var product = $scope.product;
 			$scope.comments = review.comments;
 			console.log('access permitted') 
