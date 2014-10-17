@@ -70,7 +70,12 @@
 				  <source type="video/webm" ng-src="{{scePermit(review.content)}}"><source> 
 				  <source type="video/mp4" ng-src="{{scePermit(review.content)}}"></source>
 				</video>
-				<a ng-click="reviewClicked(review)">comments</p>
+				<a data-ng-click="removeReview(review)">
+					<span data-ng-show="authentication.user._id == product.user._id" class="glyphicon glyphicon-remove reviewActions"></span>
+				</a>
+				<a ng-click="reviewClicked(review)">
+					<span class="glyphicon glyphicon-comment reviewActions"></span>
+				</a>
 				
 			</li>
 		</ul>

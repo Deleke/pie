@@ -100,3 +100,8 @@ ul.container li video {
      width: 800px;
      margin: 0 0 10px;
 }
+
+.reviewActions {
+	width: 20px;
+	padding-right: 5px;
+}

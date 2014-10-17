@@ -126,6 +126,18 @@ angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'
 			}
 		};
 
+		$scope.removeReview = function(review) {
+   			var review = new Reviews({
+   				productId: $scope.product._id,
+   				_id: review._id,
+   				reviewPoster: review.ruser
+   			});
+
+   			review.$remove(function(response) {
+   				$scope.product = response
+   			});
+
+   		};
 		$scope.update = function() {
 			var product = $scope.product;
 
@@ -153,8 +165,6 @@ angular.module('products').controller('ProductsController', ['$scope', '$sce' ,'
 			$scope.comments = review.comments;
 			console.log('access permitted') 
 			$scope.displayOverlay = true;
-			// $scope.reviewContent = product.reviews[index].content;
-
 		};
 
 		$scope.hideReview = function(){
