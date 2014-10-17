@@ -17,3 +17,9 @@
 .sbutton {
 	color: red;
 }
+
+ul.row.nav.nav-bar.navbar-right {
+	width: 70%;
+	margin: 0;
+}
+

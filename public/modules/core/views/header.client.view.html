@@ -23,15 +23,16 @@
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav">
+
+<!-- 		<ul class="nav navbar-nav">
 			<form>
 				<input data-ng-model="findProduct" autocomplete="on" type="search" placeholder="Type desired products here">
 				<button class="sbutton" data-ng-click="searchProduct()">
                     Search
                 </button>
 			</form>
-		</ul>
-		</span>
+		</ul> -->
+		<!-- </span> -->
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
 				<a href="/#!/signup">Sign Up</a>
@@ -61,6 +62,18 @@
 						<a href="/auth/signout">Signout</a>
 					</li>
 				</ul>
+			</li>
+		</ul>
+		<ul class="row nav nav-bar navbar-right">
+			<li>
+				<div class="col-lg-6">
+		    		<div class="input-group input-group-sm">
+			      		<input type="text" class="form-control">
+				      		<span class="input-group-btn" data-ng-click="findProduct()">
+					        	<button class="btn btn-default" type="button">Search</button>
+				     	 	</span>
+			    	</div>
+		  		</div>
 			</li>
 		</ul>
 	</nav>
