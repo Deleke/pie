@@ -37,10 +37,11 @@ img.bgImage {
 	background-image: none;
 }
 
-.glyphicon {
-	background-color: black;
-}
-
 .sign {
 	margin-top: 50px;
+}
+
+.btn-primary {
+	background-image: none;
+	background-color: #222;
 }
