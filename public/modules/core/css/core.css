@@ -23,3 +23,24 @@ ul.row.nav.nav-bar.navbar-right {
 	margin: 0;
 }
 
+/*section.homeSection {
+	width: 100%;
+}*/
+img.bgImage {
+	width: 100%;
+	height: 100%;
+
+}
+
+.navbar-inverse {
+	border: none;
+	background-image: none;
+}
+
+.glyphicon {
+	background-color: black;
+}
+
+.sign {
+	margin-top: 50px;
+}
