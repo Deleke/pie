@@ -83,9 +83,8 @@ exports.reviewbyID = function(req, res, next, id) {
 exports.list = function(req, res) {
 	res.jsonp(req.product.reviews);
 };
-//Read review t
+//Read review thread
 exports.read = function(req, res) {
-	console.log('reading file');
 	res.jsonp(req.review);
 };
 

@@ -40,6 +40,7 @@ module.exports = function(app) {
 		.post(users.requiresLogin, comments.addComment);
 
 	app.route('/products/:productId/reviews/:reviewId/comments/:commentId')
+		.get(comments.read)
 		.put(users.requiresLogin, comments.editComment)
 		.delete(users.requiresLogin, comments.deleteComment);
 

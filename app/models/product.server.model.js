@@ -20,6 +20,10 @@ var CommentSchema = new Schema ({
 	posted: {
 		type: Date,
 		default: Date.now
+	},
+	review: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 });
 

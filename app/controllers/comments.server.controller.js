@@ -76,11 +76,13 @@ exports.deleteComment = function(req, res) {
 
 //read reviews thread
 exports.showComments = function(req, res) {
-	console.log(req.review);
-	// console.log(req.product.reviews.comments);
 	res.jsonp(req.review.comments);
 };
 
+//get comment by id
+exports.read = function(req, res)	{
+	res.jsonp(req.comment)
+}
 
 //authorization middleware
 exports.hasAuthorization = function(req, res, next) {
